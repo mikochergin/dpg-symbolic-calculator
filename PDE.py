@@ -1,12 +1,16 @@
 import dearpygui.dearpygui as dpg
-import webbrowser
-import pyperclip as pc
-from sympy import *
+# import webbrowser
+from webbrowser import open
+# import pyperclip as pc
+from pyperclip import copy
+# from sympy import *
+from sympy import simplify, diff, latex
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-import numpy as np
+# import numpy as np
+from numpy import asarray, float32
 
 
 dpg.create_context()
@@ -41,7 +45,7 @@ def help_callback(sender, app_data):
     При нажатии кнопки "Очистить" поля для ввода и вывода результата будут очищены.
     При нажатии кнопки "Список функций" в браузере будет открыта веб-страница Sympy \nсо списком функций.
     При нажатии кнопки "Пример" в поле для ввода будет введена функция \nдля определения частной производной.
-    При нажатии кнопки "Справка" будет открыта справка.
+    При нажатии кнопки "Справка" будет открыта справка.\n
     '''
     show_info("Справка", message, on_selection)
 def show_info(title, message, selection_callback):
@@ -70,11 +74,13 @@ def on_selection(sender, unused, user_data):
 
 
 def Flist_callback(sender, app_data):
-    webbrowser.open('https://docs.sympy.org/latest/modules/functions/elementary.html')
+    # webbrowser.open('https://docs.sympy.org/latest/modules/functions/elementary.html')
+    open('https://docs.sympy.org/latest/modules/functions/elementary.html')
 
 
 def copy_callback(sender, app_data):
-    pc.copy(dpg.get_value('result_output'))
+    # pc.copy(dpg.get_value('result_output'))
+    copy(dpg.get_value('result_output'))
 
 def clear_output(sender, app_data):
     global is_formula_shown
@@ -133,8 +139,10 @@ def create_PDE(formula):
     ax = fig.gca()
     canvas.draw()
     buf = canvas.buffer_rgba()
-    image = np.asarray(buf)
-    image = image.astype(np.float32) / 255
+    # image = np.asarray(buf)
+    image = asarray(buf)
+    # image = image.astype(np.float32) / 255
+    image = image.astype(float32) / 255
 
     with dpg.texture_registry():
         dpg.add_raw_texture(
@@ -167,7 +175,7 @@ with dpg.font_registry():
             biglet += 1  # choose next letter
 dpg.bind_font(default_font)
 
-with dpg.window(label="Приложение для взятия частных производных аналитически", width=800, height=400, no_move=True, no_title_bar=True) as MainWindow:
+with dpg.window(label="Приложение для взятия частных производных аналитически", width=800, height=500, no_move=True, no_title_bar=True) as MainWindow:
     with dpg.group(horizontal=False):#, tag='result_group'):
         with dpg.group(horizontal=True):
             dpg.add_spacer(width=100)
@@ -228,7 +236,7 @@ dpg.bind_item_theme(MainWindow, container_theme)
 
 # dpg.show_style_editor()
 
-dpg.create_viewport(title='Symbolic Calculator', width=800, height=400)
+dpg.create_viewport(title='Symbolic Calculator', width=800, height=500)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.start_dearpygui()
