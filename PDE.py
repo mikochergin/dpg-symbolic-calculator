@@ -167,7 +167,7 @@ with dpg.font_registry():
             biglet += 1  # choose next letter
 dpg.bind_font(default_font)
 
-with dpg.window(label="Приложение для взятия частных производных аналитически", width=800, height=400) as MainWindow:
+with dpg.window(label="Приложение для взятия частных производных аналитически", width=800, height=400, no_move=True, no_title_bar=True) as MainWindow:
     with dpg.group(horizontal=False):#, tag='result_group'):
         with dpg.group(horizontal=True):
             dpg.add_spacer(width=100)
@@ -228,7 +228,7 @@ dpg.bind_item_theme(MainWindow, container_theme)
 
 # dpg.show_style_editor()
 
-dpg.create_viewport(title='Custom Title', width=800, height=400)
+dpg.create_viewport(title='Symbolic Calculator', width=800, height=400)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.start_dearpygui()
