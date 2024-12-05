@@ -46,8 +46,11 @@ def help_callback(sender, app_data):
     При нажатии кнопки "Список функций" в браузере будет открыта веб-страница Sympy \nсо списком функций.
     При нажатии кнопки "Пример" в поле для ввода будет введена функция \nдля определения частной производной.
     При нажатии кнопки "Справка" будет открыта справка.\n
+    Вопросы, предложения, пожелания, информацию об ошибках можно направить 
+    на maksim.i.kochergin@tusur.ru или
+    в https://github.com/mikochergin/dpg-symbolic-calculator
     '''
-    show_info("Справка", message, on_selection)
+    show_info("Справка: Модуль взятия производных 1.0", message, on_selection)
 def show_info(title, message, selection_callback):
 
     # guarantee these commands happen in the same frame
@@ -60,6 +63,12 @@ def show_info(title, message, selection_callback):
             dpg.add_text(message)
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Ok", width=75, user_data=(modal_id, True), callback=selection_callback)
+                dpg.add_spacer(width=5)
+                dpg.add_button(label='Сообщить об ошибке\nна GitHub', width=175, 
+                    callback=lambda: open('https://github.com/mikochergin/dpg-symbolic-calculator/issues'))
+                dpg.add_spacer(width=5)
+                dpg.add_button(label='Сообщить об ошибке\nна e-mail', width=175, 
+                    callback=lambda: open('mailto:maksim.i.kochergin@tusur.ru'))
 
     # guarantee these commands happen in another frame
     dpg.split_frame()
