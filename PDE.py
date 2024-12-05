@@ -1,16 +1,13 @@
 import dearpygui.dearpygui as dpg
-# import webbrowser
-from webbrowser import open
-# import pyperclip as pc
-from pyperclip import copy
+import webbrowser
+import pyperclip as pc
 # from sympy import *
 from sympy import simplify, diff, latex
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-# import numpy as np
-from numpy import asarray, float32
+import numpy as np
 
 
 dpg.create_context()
@@ -83,13 +80,11 @@ def on_selection(sender, unused, user_data):
 
 
 def Flist_callback(sender, app_data):
-    # webbrowser.open('https://docs.sympy.org/latest/modules/functions/elementary.html')
-    open('https://docs.sympy.org/latest/modules/functions/elementary.html')
+    webbrowser.open('https://docs.sympy.org/latest/modules/functions/elementary.html')
 
 
 def copy_callback(sender, app_data):
-    # pc.copy(dpg.get_value('result_output'))
-    copy(dpg.get_value('result_output'))
+    pc.copy(dpg.get_value('result_output'))
 
 def clear_output(sender, app_data):
     global is_formula_shown
@@ -148,10 +143,8 @@ def create_PDE(formula):
     ax = fig.gca()
     canvas.draw()
     buf = canvas.buffer_rgba()
-    # image = np.asarray(buf)
-    image = asarray(buf)
-    # image = image.astype(np.float32) / 255
-    image = image.astype(float32) / 255
+    image = np.asarray(buf)
+    image = image.astype(np.float32) / 255
 
     with dpg.texture_registry():
         dpg.add_raw_texture(
